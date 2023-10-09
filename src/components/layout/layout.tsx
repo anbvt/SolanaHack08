@@ -9,7 +9,7 @@ import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 import type { PropsWithChildren } from "react"
 import React, { useMemo } from "react"
 import "@solana/wallet-adapter-react-ui/styles.css"
-import Header from "../header/Header"
+import Header from "../header/header"
 import Footer from "../header/footer"
 
 export const Layout = ({ children }: PropsWithChildren) => {
