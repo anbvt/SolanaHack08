@@ -9,13 +9,14 @@ import Container from "../ui/container";
 import { Button } from "../ui/button";
 import ProfileButton from "../ui/ProfileButton";
 import ConnectWalletButton from "../wallet/connect-wallet-button";
+import CreateCampaign from "@/app/create-campaign/page";
 
 
 const Header = () => {
   const { theme, setTheme } = useTheme();
   const routes = [
     {
-      href: "/",
+      href: "/transaction",
       label: "Browse campaign",
     },
     {
@@ -97,10 +98,14 @@ const Header = () => {
             <div className="mx-3">
               <ConnectWalletButton />
             </div>
+            <div className="ms-10">
+              <CreateCampaign/>
+            </div>
           </div>
         </div>
       </Container>
     </header>
+
   );
 };
 

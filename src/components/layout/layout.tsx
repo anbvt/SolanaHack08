@@ -1,5 +1,4 @@
 "use client"
-
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base"
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react"
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui"
@@ -11,6 +10,9 @@ import React, { useMemo } from "react"
 import "@solana/wallet-adapter-react-ui/styles.css"
 import Header from "../header/header"
 import Footer from "../header/footer"
+import HomePage from "@/app/transaction/page"
+import Campaign from "@/app/page"
+import CreateCampaign from "@/app/create-campaign/page"
 
 export const Layout = ({ children }: PropsWithChildren) => {
     const network = WalletAdapterNetwork.Devnet
@@ -19,7 +21,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
     
     // add wallets if you want !
     const wallets = useMemo(() => [new PhantomWalletAdapter(), new SolflareWalletAdapter()], [])
-
+    
     return (
         <div className="">
             <ConnectionProvider endpoint={endpoint}>

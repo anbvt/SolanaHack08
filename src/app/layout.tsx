@@ -3,6 +3,7 @@ import { Layout } from "@/components/layout/layout";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import Campaign from "./create-campaign/page";
 
 const inter = Inter({ subsets: ["latin"] });
 
