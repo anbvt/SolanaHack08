@@ -11,7 +11,6 @@ import ProfileButton from "../ui/ProfileButton";
 import ConnectWalletButton from "../wallet/connect-wallet-button";
 import CreateCampaign from "@/app/create-campaign/page";
 
-
 const Header = () => {
   const { theme, setTheme } = useTheme();
   const routes = [
@@ -90,7 +89,7 @@ const Header = () => {
               <Moon className="absolute h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle Theme</span>
             </Button>
-            
+
             <div className="mx-3">
               <ProfileButton />
             </div>
@@ -98,14 +97,15 @@ const Header = () => {
             <div className="mx-3">
               <ConnectWalletButton />
             </div>
-            <div className="ms-10">
-              <CreateCampaign/>
+            <div className="ms-10 text-end">
+              <Button>
+                <Link href={"/create-campaign"}>Create Campaign</Link>
+              </Button>
             </div>
           </div>
         </div>
       </Container>
     </header>
-
   );
 };
 

@@ -4,6 +4,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import Campaign from "./create-campaign/page";
+import Home from "./page";
+import { GlobalContextProvider } from "./Context/Store";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +23,20 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-        <Layout >
-        {children}
-        </Layout>
+      
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+            <GlobalContextProvider>
+            <Layout>{children}</Layout>
+            </GlobalContextProvider>
+
+
         </ThemeProvider>
+       
       </body>
     </html>
   );
