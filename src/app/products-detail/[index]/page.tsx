@@ -13,53 +13,147 @@ const CreateCampaignDetail = () => {
   //     const selectedImage = data.find(image => image.id = id);
   //     console.log(id)
   //   }
-
   // }, [data])
+
   const data = {
     id: 'CP1',
     title: 'Chiến dịch gọi vốn khởi nghiệp',
     subTitle: 'Sinh viên nghèo vượt khó kêu gọi vốn',
     info: { id: 1, username: 'Bùi Vũ Thiên Ân' },
     link: "ZFpeMmN392w",
-    description: 'Welcome to Meraki UI! You’re already on your way to creating beautiful visual products. We’ve created a quick intro video to get you up and running as soon as possible. If you have any questions'
+    amount: '1000',
+    starttime: "25/10/2023",
+    description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
   }
 
   return (
     <>
-      <section className="py-20 relative z-50">
-        <div className="container">
-          <div className="mx-auto max-w-2xl sm:text-center pb-10">
-            <span className="font-medium text-gray-400 tracking-widest">Campaign / {data.info.username}</span>
-            <h2 className="md:text-5xl text-3xl font-medium tracking-tight mt-7">{data.title}</h2>
-            <div className="w-10 mx-auto mt-5 bg-gradient-to-r from-cyan-500 to-blue-500 h-[2px]"></div>
-            <p className="mt-6 text-xl/8 text-gray-600 dark:text-gray-400">{data.subTitle}</p>
-          </div>
-        </div>
-        <div className="flex items-center justify-center">
-          <div className="bg-white rounded-3xl border shadow-xl p-8 w-3/6">
-            <div className="flex justify-between items-center mb-4">
-              <button className="inline-flex items-center justify-center w-14 h-14 text-blue-100 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full">
-                <img src="https://i.pinimg.com/564x/15/d1/19/15d119914857b2bf333b5a12992ea8d1.jpg" alt="" />
-              </button>
-              <div>
-                <span className="font-bold text-green-500">+ $726 (15%)</span><br />
-                <span className="font-medium text-xs text-gray-500 flex justify-end">0.382 coin</span>
+      <section className="max-w-7xl px-6 mx-auto">
+        <section className="flex m-5">
+          <img src="/img/1.png" className="w-full h-screen bg-cover rounded-xl" alt="" />
+          <span className="py-5 px-12">
+            <h2 className="pb-5 md:text-3xl text-xl font-bold">{data.title}</h2>
+            <p className="text-md leading-loose text-gray-600 dark:text-gray-300">
+              {data.description}
+            </p>
+          </span>
+        </section>
+
+        <section className="flex justify-center items-center">
+          <div className="bg-white rounded-xl shadow-md overflow-hidden w-full m-5">
+            <div className="p-8">
+              <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold pb-2">Raise amount</div>
+              <p className="text-right text-3xl text-black pb-5 font-bold">500/{data.amount} SOL</p>
+              <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                <div className="bg-green-500 h-2.5 rounded-full" style={{ width: "50%" }}></div>
               </div>
             </div>
-            <div>
-              <h3 className="font-semibold text-sm text-gray-400">SOL</h3>
-              <h1 className="font-semibold text-xl text-gray-700">$ 1,936.00</h1>
+          </div>
+          <div className="bg-white rounded-xl shadow-md overflow-hidden w-full m-5">
+            <div className="p-8">
+              <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold pb-2">End time</div>
+              <h1 className="text-right text-3xl text-black pb-2 font-bold">Perpetual</h1>
+              <p className="text-sm text-right">Start time: {data.starttime}</p>
             </div>
           </div>
-        </div>
-      </section>
-      <section className="max-w-3xl px-6 mx-auto bg-white dark:bg-gray-900">
-        <h2 className="mt-6 text-gray-700 dark:text-gray-200">{data.title},</h2>
-        <section>
-          <p className="mt-2 leading-loose text-gray-600 dark:text-gray-300">
-            {data.description}
-          </p>
-          <iframe className="w-full h-64 my-10 rounded-lg md:h-80" src={`https://www.youtube.com/embed/${data.link}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+          <div className="bg-white rounded-xl shadow-md overflow-hidden w-1/2 m-5">
+            <div className="p-10">
+              <img className="justify-center m-auto w-10 h-10 rounded-full" src="/img/1.png" alt="" />
+              <p className="text-center pt-4">{data.info.username}</p>
+            </div>
+          </div>
+        </section>
+        <section className="flex p-5">
+          <div className="antialiased mx-auto w-full rounded-xl shadow-md overflow-hidden p-8">
+            <h3 className="mb-4 text-lg font-semibold text-gray-900">Comments</h3>
+            <div className="space-y-4">
+              <div className="flex">
+                <div className="flex-shrink-0 mr-3">
+                  <img className="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10" src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80" alt="" />
+                </div>
+                <div className="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+                  <strong>Sarah</strong> <span className="text-xs text-gray-400">3:34 PM</span>
+                  <p className="text-sm">
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                    sed diam nonumy eirmod tempor invidunt ut labore et dolore
+                    magna aliquyam erat, sed diam voluptua.
+                  </p>
+                  <div className="mt-4 flex items-center">
+                    <div className="flex -space-x-2 mr-2">
+                      <img className="rounded-full w-6 h-6 border border-white" src="https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80" alt="" />
+                      <img className="rounded-full w-6 h-6 border border-white" src="https://images.unsplash.com/photo-1513956589380-bad6acb9b9d4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80" alt="" />
+                    </div>
+                    <div className="text-sm text-gray-500 font-semibold">
+                      5 Replies
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex">
+                <div className="flex-shrink-0 mr-3">
+                  <img className="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10" src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80" alt="" />
+                </div>
+                <div className="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+                  <strong>Sarah</strong> <span className="text-xs text-gray-400">3:34 PM</span>
+                  <p className="text-sm">
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                    sed diam nonumy eirmod tempor invidunt ut labore et dolore
+                    magna aliquyam erat, sed diam voluptua.
+                  </p>
+
+                  <h4 className="my-5 uppercase tracking-wide text-gray-400 font-bold text-xs">Replies</h4>
+
+                  <div className="space-y-4">
+                    <div className="flex">
+                      <div className="flex-shrink-0 mr-3">
+                        <img className="mt-3 rounded-full w-6 h-6 sm:w-8 sm:h-8" src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80" alt="" />
+                      </div>
+                      <div className="flex-1 bg-gray-100 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+                        <strong>Sarah</strong> <span className="text-xs text-gray-400">3:34 PM</span>
+                        <p className="text-xs sm:text-sm">
+                          Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                          sed diam nonumy eirmod tempor invidunt ut labore et dolore
+                          magna aliquyam erat, sed diam voluptua.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex">
+                      <div className="flex-shrink-0 mr-3">
+                        <img className="mt-3 rounded-full w-6 h-6 sm:w-8 sm:h-8" src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80" alt="" />
+                      </div>
+                      <div className="flex-1 bg-gray-100 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+                        <strong>Sarah</strong> <span className="text-xs text-gray-400">3:34 PM</span>
+                        <p className="text-xs sm:text-sm">
+                          Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                          sed diam nonumy eirmod tempor invidunt ut labore et dolore
+                          magna aliquyam erat, sed diam voluptua.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="font-manrope flex h-screen w-2/3 items-start justify-center">
+            <div className="mx-auto box-border w-[365px] border bg-white p-4 rounded-xl shadow-md overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="text-black font-bold">Sending Money</span>
+              </div>
+              <div className="mt-6">
+                <div className="font-semibold">How much would you like to send?</div>
+                <div><input className="mt-1 w-full rounded-[4px] border border-[#A0ABBB] p-2" value="100.00" type="text" placeholder="100.00" /></div>
+              </div>
+              <div className="mt-6">
+                <div className="font-semibold">Note for campagin</div>
+                <div><textarea className="mt-1 w-full rounded-[4px] border border-[#A0ABBB] p-2" placeholder="Write your support speech here (Optional)" /></div>
+              </div>
+              <div className="mt-6">
+                <div className="w-full cursor-pointer rounded-[4px] bg-green-700 px-3 py-[6px] text-center font-semibold text-white">Send</div>
+              </div>
+            </div>
+          </div>
         </section>
       </section>
     </>
