@@ -1,28 +1,23 @@
 "use client";
 
-import { userGlobalContext } from "@/app/Context/Store";
-import { useEffect, useState } from "react";
+import { DataType, userGlobalContext } from "@/app/context/Store";
+import { useEffect, useState, FC } from "react";
+interface pageProps {
+  params: { index: number };
+}
 
-const CreateCampaignDetail = () => {
-  const idString = window.location.pathname.split("/").pop();
-
+const PAGE: FC<pageProps> = ({ params }) => {
   const { data } = userGlobalContext();
-  const [imageList, setImageList] = useState([]);
-  useEffect(() =>{
-    if (idString !== undefined) {
-        const id = parseInt(idString, 10); 
-        
-        const selectedImage = data.find(image => image.id = id);
-        console.log(id)
-      } 
-   
-  },[data])
+  const [dataone, setdataone] = useState<DataType>();
+
+  useEffect(() => {
+    const searchData = data.find((item) => item.id == params.index);
+    setdataone(searchData);
+  }, [params.index]);
 
   return (
-    <div>
-      <h1>Chi tiết hình ảnh có ID:</h1>
-    </div>
+    <h1>trang detail</h1> 
   );
 };
 
-export default CreateCampaignDetail;
+export default PAGE;

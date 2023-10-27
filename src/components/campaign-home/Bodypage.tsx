@@ -1,15 +1,16 @@
 "use client";
-import { GlobalContext } from "@/app/Context/Store";
+import { GlobalContext } from "@/app/context/Store";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { userGlobalContext } from "@/app/Context/Store";
+import { userGlobalContext } from "@/app/context/Store";
 import { Label } from "@radix-ui/react-dropdown-menu";
 function Bodypage() {
   const { data } = userGlobalContext();
   const [dataList, setDataList] = useState(data);
   useEffect(() => {
     setDataList(data);
+    console.log(data);
   }, [data]);
   return (
     <>
@@ -30,6 +31,7 @@ function Bodypage() {
                     height={10}
                   />
                 </Link>
+
                 <div className="">
                   <Label className="pt-5 text-[#8265a7] text-1xl font-gadget font-[700] pb-2">
                     {image.description}
