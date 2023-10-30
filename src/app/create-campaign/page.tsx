@@ -1,14 +1,14 @@
 "use client";
-import { ChangeEvent, useState } from "react";
-import { userGlobalContext } from "../Context/Store";
-import { Input } from "@/components/ui/input";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Label } from "@radix-ui/react-label";
-import Container from "@/components/ui/container";
+import { userGlobalContext } from "../context/Store";
+
 const CreateCampaign = () => {
-  const { data, setData } = userGlobalContext();
+
+  const { data, setData, nextId, setNextId } = userGlobalContext();
+
   const [newImage, setNewImage] = useState({
-    id: 0,
+    id: nextId,
     title: "",
     startTime: "",
     endTime: "",
@@ -39,10 +39,10 @@ const CreateCampaign = () => {
   };
 
   const addImage = () => {
-    newImage.id++;
     setData([...data, newImage]);
+    setNextId(nextId + 1);
     setNewImage({
-      id: newImage.id,
+      id: nextId + 1,
       title: "",
       endTime: "",
       startTime: "",
@@ -53,105 +53,51 @@ const CreateCampaign = () => {
       total: 0,
       lastDonation: "",
     });
-
-    console.log(data)
   };
 
   return (
     <>
-      <div className="w-[100%] flex flex-col items-center justify-center pt-[5%]">
-        <div className="w-[30%]">
-          <div className="w-[100%] flex items-center justify-center">
-            <Label className="text-center text-[20px] pb-4 font-gadget font-[700]">Thêm Hình Ảnh Mới</Label>
-          </div>
-          <Container>
-            <form>
-              <Label htmlFor="src">Hình ảnh:</Label>
-              <Input
-                className="mb-4"
+      <div className="w-[100%] h-[1000px] flex flex-col items-center  bg-[#fef6f0]">
+        <div className="w-[80%]  h-[70%] pt-9">
+          <form className="h-[100%] flex justify-center">
+            <div className="flex justify-center  items-center w-[50%] h-[60%] bg-[#fcf0ea]  rounded">
+              <input
+                className="w-[40%]"
                 type="file"
                 id="src"
                 accept="image/*"
                 onChange={handleImageChange}
               />
-              <Label htmlFor="title">Tiêu đề:</Label>
-              <Input
-                className="mb-4"
-                type="text"
-                id="title"
-                value={newImage.title}
-                onChange={(e) =>
-                  setNewImage({ ...newImage, title: e.target.value })
-                }
-              />
-              <Label htmlFor="startTime">Ngày bắt đầu:</Label>
-              <Input
-                className="mb-4"
-                type="text"
-                id="startTime"
-                value={newImage.startTime}
-                onChange={(e) =>
-                  setNewImage({ ...newImage, startTime: e.target.value })
-                }
-              />
-              <Label htmlFor="endTime">Ngày kết thúc:</Label>
-              <Input
-                className="mb-4"
-                type="text"
-                id="endTime"
-                value={newImage.endTime}
-                onChange={(e) =>
-                  setNewImage({ ...newImage, endTime: e.target.value })
-                }
-              />
-              <Label htmlFor="description">Mô tả:</Label>
-              <Input
-                className="mb-4"
-                type="text"
-                id="description"
-                value={newImage.description}
-                onChange={(e) =>
-                  setNewImage({ ...newImage, description: e.target.value })
-                }
-              />
-              <Label htmlFor="organization">Tổ chức:</Label>
-              <Input
-                className="mb-4"
-                type="text"
-                id="organization"
-                value={newImage.organization}
-                onChange={(e) =>
-                  setNewImage({ ...newImage, organization: e.target.value })
-                }
-              />
-              <Label htmlFor="funded">Funded:</Label>
-              <Input
-                className="mb-4"
-                type="number"
-                id="funded"
-                value={newImage.funded.toString()}
-                onChange={(e) =>
-                  setNewImage({
-                    ...newImage,
-                    funded: parseInt(e.target.value, 10),
-                  })
-                }
-              />
-
-              <Label htmlFor="total">Total:</Label>
-              <Input
-                type="number"
-                id="total"
-                value={newImage.total}
-                onChange={(e) =>
-                  setNewImage({ ...newImage, total: Number(e.target.value) })
-                }
-              />
-              <Button className="mt-5" type="button" onClick={addImage}>
-                Thêm
-              </Button>
-            </form>
-          </Container>
+            </div>
+            <div className="w-[50%] flex flex-col items-center  pt-8    h-[60%] ">
+              <div className="w-[50%] ">
+                <input
+                  placeholder={`Fill the name of your campaign`}
+                  className="border w-[120%] rounded-md p-2 text-[30px]  outline-none border-none font-gadget font-[600] bg-transparent"
+                  type="text"
+                  id="description"
+                  value={newImage.description}
+                  onChange={(e) =>
+                    setNewImage({ ...newImage, description: e.target.value })
+                  }
+                />
+              </div>
+              <div >
+                <input
+                  className="mb-4"
+                  type="text"
+                  id="organization"
+                  value={newImage.organization}
+                  onChange={(e) =>
+                    setNewImage({ ...newImage, organization: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+            <Button className="mt-5" type="button" onClick={addImage}>
+              Thêm
+            </Button>
+          </form>
         </div>
       </div>
     </>

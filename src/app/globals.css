@@ -79,10 +79,11 @@
   color: red;
 }
 .footer{
-  padding-top: 100px;
+
+  
   border-bottom: 2px solid #ff0000;
   color: var(--background);
-  background-color: var(--background);
+  background-color:#fef6f0;
 }
 
 

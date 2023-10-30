@@ -1,7 +1,7 @@
 import Bodypage from "@/components/campaign-home/Bodypage";
 import HeaderPage from "@/components/campaign-home/HeaderPage";
 import ImagePage from "@/components/campaign-home/ImagePage";
-import { GlobalContextProvider } from "./Context/Store";
+import { GlobalContextProvider } from "./context/Store";
 
 export default function Home() {
   return (

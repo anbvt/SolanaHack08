@@ -17,7 +17,7 @@ import HomePage from "@/app/transaction/page";
 import Campaign from "@/app/page";
 import CreateCampaign from "@/app/create-campaign/page";
 import Home from "@/app/page";
-import { GlobalContextProvider } from "@/app/Context/Store";
+import { GlobalContextProvider } from "@/app/context/Store";
 export const Layout = ({ children }: PropsWithChildren) => {
   const network = WalletAdapterNetwork.Devnet;
 

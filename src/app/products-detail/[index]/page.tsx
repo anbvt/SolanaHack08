@@ -1,6 +1,5 @@
-"use client";
-
-import { userGlobalContext } from "@/app/Context/Store";
+"use client"
+import { userGlobalContext } from "@/app/context/Store";
 import { useEffect, useState } from "react";
 type DataType = {
   id: number
@@ -14,7 +13,7 @@ type DataType = {
   total: number
   lastDonation: string
 };
-const CreateCampaignDetail = () => {
+const Detail = () => {
   const { data } = userGlobalContext();
   const [dataList, setDataList] = useState(data);
   const [imageList, setImageList] = useState<DataType>();
@@ -157,4 +156,4 @@ const CreateCampaignDetail = () => {
   );
 };
 
-export default CreateCampaignDetail;
+export default Detail;
