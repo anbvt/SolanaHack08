@@ -8,7 +8,10 @@ import Container from "@/components/ui/container";
 const CreateCampaign = () => {
   const { data, setData } = userGlobalContext();
   const [newImage, setNewImage] = useState({
-    id :0,
+    id: 0,
+    title: "",
+    startTime: "",
+    endTime: "",
     src: "",
     description: "",
     organization: "",
@@ -39,7 +42,10 @@ const CreateCampaign = () => {
     newImage.id++;
     setData([...data, newImage]);
     setNewImage({
-      id :newImage.id,
+      id: newImage.id,
+      title: "",
+      endTime: "",
+      startTime: "",
       src: "",
       description: "",
       organization: "",
@@ -68,7 +74,37 @@ const CreateCampaign = () => {
                 accept="image/*"
                 onChange={handleImageChange}
               />
-              <Label htmlFor="description">Description:</Label>
+              <Label htmlFor="title">Tiêu đề:</Label>
+              <Input
+                className="mb-4"
+                type="text"
+                id="title"
+                value={newImage.title}
+                onChange={(e) =>
+                  setNewImage({ ...newImage, title: e.target.value })
+                }
+              />
+              <Label htmlFor="startTime">Ngày bắt đầu:</Label>
+              <Input
+                className="mb-4"
+                type="text"
+                id="startTime"
+                value={newImage.startTime}
+                onChange={(e) =>
+                  setNewImage({ ...newImage, startTime: e.target.value })
+                }
+              />
+              <Label htmlFor="endTime">Ngày kết thúc:</Label>
+              <Input
+                className="mb-4"
+                type="text"
+                id="endTime"
+                value={newImage.endTime}
+                onChange={(e) =>
+                  setNewImage({ ...newImage, endTime: e.target.value })
+                }
+              />
+              <Label htmlFor="description">Mô tả:</Label>
               <Input
                 className="mb-4"
                 type="text"
@@ -78,7 +114,7 @@ const CreateCampaign = () => {
                   setNewImage({ ...newImage, description: e.target.value })
                 }
               />
-              <Label htmlFor="organization">Organization:</Label>
+              <Label htmlFor="organization">Tổ chức:</Label>
               <Input
                 className="mb-4"
                 type="text"

@@ -2,6 +2,10 @@
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useState } from "react";
 
 type DataType = {
+  id: number
+  title: string
+  startTime: string
+  endTime: string
   src: string;
   description: string;
   organization :string;
@@ -14,7 +18,7 @@ interface ContextProps {
   data: DataType[];
   setData: Dispatch<SetStateAction<DataType[]>>;
 }
- 
+
 export const GlobalContext = createContext<ContextProps>({
   data: [],
   setData: () => [],
@@ -24,7 +28,7 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
   const [data, setData] = useState<DataType[]>([]);
   return (
     <GlobalContext.Provider value={{ data, setData }}>
-           {children}
+      {children}
     </GlobalContext.Provider>
   );
 };

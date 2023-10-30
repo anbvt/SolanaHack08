@@ -2,39 +2,36 @@
 
 import { userGlobalContext } from "@/app/Context/Store";
 import { useEffect, useState } from "react";
-
+type DataType = {
+  id: number
+  title: string
+  startTime: string
+  endTime: string
+  description: string
+  src: string
+  organization: string
+  funded: number
+  total: number
+  lastDonation: string
+};
 const CreateCampaignDetail = () => {
-  // const idString = window.location.pathname.split("/").pop();
-  // const { data } = userGlobalContext();
-  // const [imageList, setImageList] = useState([]);
-  // useEffect(() => {
-  //   if (idString !== undefined) {
-  //     const id = parseInt(idString, 10);
-  //     const selectedImage = data.find(image => image.id = id);
-  //     console.log(id)
-  //   }
-  // }, [data])
-
-  const data = {
-    id: 'CP1',
-    title: 'Chiến dịch gọi vốn khởi nghiệp',
-    subTitle: 'Sinh viên nghèo vượt khó kêu gọi vốn',
-    info: { id: 1, username: 'Bùi Vũ Thiên Ân' },
-    link: "ZFpeMmN392w",
-    amount: '1000',
-    starttime: "25/10/2023",
-    description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
-  }
-
+  const { data } = userGlobalContext();
+  const [dataList, setDataList] = useState(data);
+  const [imageList, setImageList] = useState<DataType>();
+  useEffect(() => {
+    const id = parseInt(window.location.pathname.split("/").pop() as string, 10);
+    const selectedImage = dataList.find(image => image.id == id);
+    setImageList(selectedImage)
+  }, [])
   return (
     <>
       <section className="max-w-7xl px-6 mx-auto">
         <section className="flex m-5">
-          <img src="/img/1.png" className="w-full h-screen bg-cover rounded-xl" alt="" />
+          <img src={imageList?.src} className="max-w-lg w-auto max-h-screen h-auto bg-cover rounded-xl" alt="Image Campaign" />
           <span className="py-5 px-12">
-            <h2 className="pb-5 md:text-3xl text-xl font-bold">{data.title}</h2>
+            <h2 className="pb-5 md:text-3xl text-xl font-bold">{imageList?.title}</h2>
             <p className="text-md leading-loose text-gray-600 dark:text-gray-300">
-              {data.description}
+              {imageList?.description}
             </p>
           </span>
         </section>
@@ -43,7 +40,7 @@ const CreateCampaignDetail = () => {
           <div className="bg-white rounded-xl shadow-md overflow-hidden w-full m-5">
             <div className="p-8">
               <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold pb-2">Raise amount</div>
-              <p className="text-right text-3xl text-black pb-5 font-bold">500/{data.amount} SOL</p>
+              <p className="text-right text-3xl text-black pb-5 font-bold">{imageList?.funded}/{imageList?.total}</p>
               <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
                 <div className="bg-green-500 h-2.5 rounded-full" style={{ width: "50%" }}></div>
               </div>
@@ -52,14 +49,14 @@ const CreateCampaignDetail = () => {
           <div className="bg-white rounded-xl shadow-md overflow-hidden w-full m-5">
             <div className="p-8">
               <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold pb-2">End time</div>
-              <h1 className="text-right text-3xl text-black pb-2 font-bold">Perpetual</h1>
-              <p className="text-sm text-right">Start time: {data.starttime}</p>
+              <h1 className="text-right text-3xl text-black pb-2 font-bold">{imageList?.endTime}</h1>
+              <p className="text-sm text-right">Start time: {imageList?.startTime}</p>
             </div>
           </div>
           <div className="bg-white rounded-xl shadow-md overflow-hidden w-1/2 m-5">
             <div className="p-10">
               <img className="justify-center m-auto w-10 h-10 rounded-full" src="/img/1.png" alt="" />
-              <p className="text-center pt-4">{data.info.username}</p>
+              <p className="text-center pt-4">{imageList?.organization}</p>
             </div>
           </div>
         </section>

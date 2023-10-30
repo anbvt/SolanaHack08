@@ -5,12 +5,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { userGlobalContext } from "@/app/Context/Store";
 import { Label } from "@radix-ui/react-dropdown-menu";
+
 function Bodypage() {
   const { data } = userGlobalContext();
+
   const [dataList, setDataList] = useState(data);
   useEffect(() => {
-    setDataList(data);
-  }, [data]);
+    // setDataList(data);
+    console.log(dataList);
+    
+  }, []);
+  
   return (
     <>
       {dataList.map((image, index) => (
@@ -32,7 +37,7 @@ function Bodypage() {
                 </Link>
                 <div className="">
                   <Label className="pt-5 text-[#8265a7] text-1xl font-gadget font-[700] pb-2">
-                    {image.description}
+                    {image.title}
                   </Label>
                   <Label className="text-[#9aa4ac] pb-3"></Label>
                   <Label className="pt-5 text-black text-1xl font-gadget font-[700] pb-2">
