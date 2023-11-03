@@ -20,8 +20,9 @@ const CreateCampaign = () => {
     total: 0,
     lastDonation: "",
   });
-  
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.files);
     if (e.target && e.target.files) {
       const file = e.target.files[0];
       if (file) {
@@ -58,26 +59,37 @@ const CreateCampaign = () => {
 
   return (
     <>
-      <div className="w-[100%] h-[1000px] flex flex-col items-center  bg-[#fef6f0]">
+      <div className="w-[100%] h-[1000px] flex flex-col items-center  bg-[#fef6f0] select-none">
         <div className="w-[80%]  h-[70%] pt-9">
           {/* Image with description */}
           <form className="h-[80%] flex justify-center">
             <div className="flex justify-center  items-center w-[50%] h-[100%] bg-[#fcf0ea]  rounded">
-              <label className="flex flex-col rounded-lg border-4 border-none w-full h-80 p-20 group text-center">
+              <label className="flex flex-col rounded-lg border-4 border-none w-full h-[100%] group text-center">
                 <div className="h-full w-full text-center flex flex-col items-center justify-center">
-                  <div className="flex flex-auto max-h-48 w-2/5 mx-auto justify-center">
+                  {/* <div className="flex flex-auto max-h-48 w-2/5 mx-auto justify-center">
                     <span></span>
+                    
+                  </div> */}
+                  {newImage.src === "" ? (
+                    <>
+                      <img
+                        className="h-36 object-center"
+                        src="/img/add-image.png"
+                        alt=""
+                      />{" "}
+                      <p className=" pointer-events-none text-gray-500 first-letter:">
+                        <span className="text-sm">
+                          Upload your campaign picture
+                        </span>
+                      </p>
+                    </>
+                  ) : (
                     <img
-                      className="absolute h-36 object-center "
-                      src="/img/add-image.png"
+                      className="h-[33rem] w-[36rem] object-center rounded"
+                      src={newImage.src}
                       alt=""
                     />
-                  </div>
-                  <p className=" pointer-events-none text-gray-500 first-letter:">
-                    <span className="text-sm">
-                      Upload your campaign picture
-                    </span>
-                  </p>
+                  )}
                 </div>
                 <input
                   type="file"
@@ -103,10 +115,10 @@ const CreateCampaign = () => {
                 />
                 <div
                   className="absolute w-full text-sm text-neutral-500 peer-focus:text-primary dark:text-neutral-200 dark:peer-focus:text-primary"
-                  data-te-input-helper-ref>
-                </div>
+                  data-te-input-helper-ref
+                ></div>
               </div>
-              <div >
+              <div>
                 <textarea
                   id="organization"
                   rows={20}
@@ -122,7 +134,7 @@ const CreateCampaign = () => {
             </div>
           </form>
           {/* Fund and time */}
-          <div className="flex justify-center items-center h-[30%]">
+          <div className="flex justify-center items-center h-[30%] select-none">
             <div className="bg-white rounded-xl shadow-md overflow-hidden w-full m-3">
               <div className="p-8">
                 <div className=" tracking-wide text-sm text-gray-600 font-semibold pb-2">
