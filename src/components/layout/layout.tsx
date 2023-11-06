@@ -1,23 +1,18 @@
 "use client";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 import {
   ConnectionProvider,
   WalletProvider,
 } from "@solana/wallet-adapter-react";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import { clusterApiUrl } from "@solana/web3.js";
-import { SolflareWalletAdapter } from "@solana/wallet-adapter-solflare";
-import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
-import type { PropsWithChildren } from "react";
-import React, { useMemo } from "react";
 import "@solana/wallet-adapter-react-ui/styles.css";
-import Header from "../header/header";
+import { SolflareWalletAdapter } from "@solana/wallet-adapter-solflare";
+import { clusterApiUrl } from "@solana/web3.js";
+import type { PropsWithChildren } from "react";
+import { useMemo } from "react";
 import Footer from "../header/footer";
-import HomePage from "@/app/transaction/page";
-import Campaign from "@/app/page";
-import CreateCampaign from "@/app/create-campaign/page";
-import Home from "@/app/page";
-import { GlobalContextProvider } from "@/app/context/Store";
+import Header from "../header/header";
 export const Layout = ({ children }: PropsWithChildren) => {
   const network = WalletAdapterNetwork.Devnet;
 
@@ -30,7 +25,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
   );
 
   return (
-    <div className="">
+    <div className="flex flex-col h-screen justify-between">
       <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets} autoConnect>
           <WalletModalProvider>

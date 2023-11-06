@@ -1,11 +1,10 @@
 import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react'
 import Link from 'next/link'
-import React from 'react'
 
 
 const Footer = () => {
   return (
-<footer className="footer">
+<footer className="footer sticky top-[100vh]">
       <div className="container flex flex-wrap items-center justify-center px-4 py-8 mx-auto  lg:justify-between">
         <div className="flex flex-wrap justify-center">
           <ul className="flex items-center space-x-4">
