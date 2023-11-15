@@ -1,28 +1,27 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { ChangeEvent, useState } from "react";
-
-import { userGlobalContext } from "../context/Store";
+import axios from "axios";
+interface Campaign {
+  id: number;
+  image: string;
+  title: string;
+  endTime: Date;
+  max : number;
+  description: string;
+}
 
 const CreateCampaign = () => {
-  // initTE();
-  const { data, setData, nextId, setNextId } = userGlobalContext();
-
-  const [newImage, setNewImage] = useState({
-    id: nextId,
+  const [newImage, setNewImage] = useState<Campaign>({
+    id: 0,
+    max : 0,
+    image: "",
+    endTime: new Date(),
     title: "",
-    startTime: "",
-    endTime: "",
-    src: "",
     description: "",
-    organization: "",
-    funded: 0,
-    total: 0,
-    lastDonation: "",
   });
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
     if (e.target && e.target.files) {
       const file = e.target.files[0];
       if (file) {
@@ -31,7 +30,7 @@ const CreateCampaign = () => {
           if (event.target) {
             setNewImage({
               ...newImage,
-              src: event.target.result as string,
+              image: event.target.result as string,
             });
           }
         };
@@ -41,22 +40,28 @@ const CreateCampaign = () => {
   };
 
   const addImage = () => {
-    setData([...data, newImage]);
-    setNextId(nextId + 1);
-    setNewImage({
-      id: nextId + 1,
-      title: "",
-      endTime: "",
-      startTime: "",
-      src: "",
-      description: "",
-      organization: "",
-      funded: 0,
-      total: 0,
-      lastDonation: "",
-    });
+    axios
+      .post("http://localhost:8080/api/v1/campaign/create", newImage, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((error) => {
+        console.error("Error from server:", error.response.data);
+      });
+      setNewImage( {
+        id: 0,
+        image: "",
+        max : 0 ,
+        endTime: new Date(),
+        title: "",
+        description: ""
+      }
+      )
   };
-
   return (
     <>
       <div className="w-[100%] h-[1000px] flex flex-col items-center  bg-[#fef6f0] select-none">
@@ -66,11 +71,7 @@ const CreateCampaign = () => {
             <div className="flex justify-center  items-center w-[50%] h-[100%] bg-[#fcf0ea]  rounded">
               <label className="flex flex-col rounded-lg border-4 border-none w-full h-[100%] group text-center">
                 <div className="h-full w-full text-center flex flex-col items-center justify-center">
-                  {/* <div className="flex flex-auto max-h-48 w-2/5 mx-auto justify-center">
-                    <span></span>
-                    
-                  </div> */}
-                  {newImage.src === "" ? (
+                  {newImage.image === "" ? (
                     <>
                       <img
                         className="h-36 object-center"
@@ -86,7 +87,7 @@ const CreateCampaign = () => {
                   ) : (
                     <img
                       className="h-[33rem] w-[36rem] object-center rounded"
-                      src={newImage.src}
+                      src={newImage.image}
                       alt=""
                     />
                   )}
@@ -108,9 +109,9 @@ const CreateCampaign = () => {
                   type="text"
                   id="description"
                   data-te-input-showcounter="true"
-                  value={newImage.description}
+                  value={newImage.title}
                   onChange={(e) =>
-                    setNewImage({ ...newImage, description: e.target.value })
+                    setNewImage({ ...newImage, title: e.target.value })
                   }
                 />
                 <div
@@ -123,9 +124,9 @@ const CreateCampaign = () => {
                   id="organization"
                   rows={20}
                   cols={100}
-                  value={newImage.organization}
+                  value={newImage.description}
                   onChange={(e) =>
-                    setNewImage({ ...newImage, organization: e.target.value })
+                    setNewImage({ ...newImage, description: e.target.value })
                   }
                   className="block p-2.5  w-full text-sm rounded-lg border border-none bg-transparent font-gadget font-[600]"
                   placeholder="Give an overview of your campaign's mission and vision here."
@@ -140,9 +141,16 @@ const CreateCampaign = () => {
                 <div className=" tracking-wide text-sm text-gray-600 font-semibold pb-2">
                   Raise amount
                 </div>
-                <p className="text-right text-2xl text-gray-500 pb-1 font-bold">
-                  1000 USDC
-                </p>
+                <input
+                  className="text-right text-2xl text-gray-500 pb-1 font-bold"
+                  value={newImage.max}
+                  onChange={(e) =>
+                    setNewImage(
+                      { ...newImage, max: Number(e.target.value)} || 0
+                    )
+                  }
+                />
+
                 <p className="text-right text-1xl text-gray-400 pb-1 font-bold">
                   Or
                   <a href="" className="text-orange-300 underline">
@@ -157,10 +165,17 @@ const CreateCampaign = () => {
                 <div className=" tracking-wide text-sm  text-gray-600 font-semibold pb-2">
                   End time
                 </div>
-                <h1 className="text-right text-2xl text-gray-500 pb-1 font-bold">
-                  30/10/2023
-                </h1>
-                {/* <p className="text-sm text-right"></p> */}
+                <input
+                  type="date"
+                  onChange={(e) =>
+                    setNewImage({
+                      ...newImage,
+                      endTime: new Date(e.target.value),
+                    })
+                  }
+                  className="text-right text-2xl text-gray-500 pb-1 font-bold"
+                />
+                <p className="text-sm text-right"></p>
                 <p className="text-right text-1xl text-gray-400 pb-1 font-bold">
                   Or
                   <a href="" className="text-orange-300 underline">

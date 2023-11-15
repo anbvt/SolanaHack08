@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import Campaign from "./create-campaign/page";
 import Home from "./page";
-import { GlobalContextProvider } from "./context/Store";
+
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -30,9 +30,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-            <GlobalContextProvider>
+        
             <Layout>{children}</Layout>
-            </GlobalContextProvider>
+         
 
 
         </ThemeProvider>

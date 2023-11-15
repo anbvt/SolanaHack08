@@ -27,7 +27,7 @@ export default function Home() {
           </span>
           <span className="text-[#9aa4ac]">money and make a difference</span>
         </div>
-        <div className="flex  flex-wrap ">
+        <div className="flex  items-center flex-wrap  justify-center">
           <Bodypage />
         </div>
       </div>
