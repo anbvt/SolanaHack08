@@ -1,7 +1,6 @@
 import Bodypage from "@/components/campaign-home/Bodypage";
 import HeaderPage from "@/components/campaign-home/HeaderPage";
 import ImagePage from "@/components/campaign-home/ImagePage";
-import { GlobalContextProvider } from "./context/Store";
 
 export default function Home() {
   return (
@@ -18,7 +17,7 @@ export default function Home() {
       </div>
     </div>
     <div className="w-[100%] flex items-center justify-center ">
-      <div className="w-[80%] h-[1300px] ">
+      <div className="w-[80%] h-100 ">
         <div className="flex items-center justify-center  flex-col pt-[8%] pb-10">
           <h1 className="text-[#6f3fac] font-gadget font-bold text-3xl pb-5 ">
             Make the word bertter through charity
@@ -28,7 +27,7 @@ export default function Home() {
           </span>
           <span className="text-[#9aa4ac]">money and make a difference</span>
         </div>
-        <div className="flex  flex-wrap ">
+        <div className="flex  items-center flex-wrap  justify-center">
           <Bodypage />
         </div>
       </div>
