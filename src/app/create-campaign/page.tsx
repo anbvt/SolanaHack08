@@ -2,19 +2,22 @@
 import { Button } from "@/components/ui/button";
 import { ChangeEvent, useState } from "react";
 import axios from "axios";
+import Image from "next/image";
+import { useWallet } from "@solana/wallet-adapter-react";
 interface Campaign {
   id: number;
   image: string;
   title: string;
   endTime: Date;
-  max : number;
+  max: number;
   description: string;
 }
 
 const CreateCampaign = () => {
+  const { connected, publicKey } = useWallet();
   const [newImage, setNewImage] = useState<Campaign>({
     id: 0,
-    max : 0,
+    max: 0,
     image: "",
     endTime: new Date(),
     title: "",
@@ -52,15 +55,14 @@ const CreateCampaign = () => {
       .catch((error) => {
         console.error("Error from server:", error.response.data);
       });
-      setNewImage( {
-        id: 0,
-        image: "",
-        max : 0 ,
-        endTime: new Date(),
-        title: "",
-        description: ""
-      }
-      )
+    setNewImage({
+      id: 0,
+      image: "",
+      max: 0,
+      endTime: new Date(),
+      title: "",
+      description: "",
+    });
   };
   return (
     <>
@@ -146,7 +148,7 @@ const CreateCampaign = () => {
                   value={newImage.max}
                   onChange={(e) =>
                     setNewImage(
-                      { ...newImage, max: Number(e.target.value)} || 0
+                      { ...newImage, max: Number(e.target.value) } || 0
                     )
                   }
                 />

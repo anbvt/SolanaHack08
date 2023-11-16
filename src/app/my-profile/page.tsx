@@ -5,6 +5,7 @@ import { SystemProgram, PublicKey } from "@solana/web3.js";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import TransactionLayout from "@/app/transaction/page"
+import axios from "axios";
 
 interface WalletBalance {
     message: string;
@@ -53,118 +54,58 @@ interface token {
     "balance": number
 }
 
+interface getUserDonate{
+    countProject: number;
+    sumDonate: number;
+}
+
+
 const Profile = () => {
-    const [balance, setbalance] = useState<Number>(0);
-    const [publicKey, setpublickey] = useState<String>("");
-
-
-
     const [balanceToken, setbalanceToken] = useState<balanceToken[]>([]);
+    const [info, setInfo] = useState<getUserDonate>();
+    const {publicKey} = useWallet();
+    const apiKey = 'lXHn0L-0cC4s7YaN';
 
-    const [info, setInfo] = useState<result>();
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get("http://localhost:8080/api/v1/donate/publicly", {
+              params: { publicly: publicKey?.toBase58() }
+            });
+            setInfo(response.data);
+            console.log(response.data)
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+        fetchData(); 
+      }, [publicKey]);
 
-    const myHeaders = new Headers();
-    myHeaders.append("x-api-key", "Vus5VBA9XGmOsBhk");
-
-    // const getBalanceCha = async () => {
-    //     await setpublickey("3mFufooNGtcc8BMesZKJHSTVz7DBFEkEkbGcQB6Pqt41")
-    //     const getBalanceCon: RequestInit = {
-    //         method: 'GET',
-    //         headers: myHeaders,
-    //         redirect: 'follow',
-    //     };
-
-    //     fetch(`https://api.shyft.to/sol/v1/wallet/balance?network=devnet&wallet=${publicKey}`, getBalanceCon)
-    //         .then(response => response.json() as Promise<WalletBalance>)
-    //         .then(result => {
-
-    //             setbalance(result.result.balance)
-    //         })
-    //         .catch(error => console.log('error', error));
-
-    // }
-    // useEffect(() => {
-    //     getBalanceCha();
-    // }, [publicKey])
-
-    const getAllTokenCha = () => {
-        // const myHeaders = new Headers();
-        // myHeaders.append("x-api-key", "Vus5VBA9XGmOsBhk");
-
-        // // await setpublickey("3mFufooNGtcc8BMesZKJHSTVz7DBFEkEkbGcQB6Pqt41")
-        // var getAllToken: RequestInit = {
-        //     method: 'GET',
-        //     headers: myHeaders,
-        //     redirect: 'follow'
-        // };
-
-        // fetch("https://api.shyft.to/sol/v1/wallet/all_tokens?network=devnet&wallet=3mFufooNGtcc8BMesZKJHSTVz7DBFEkEkbGcQB6Pqt41", getAllToken)
-        //     .then(response => response.json() as Promise<WalletBalanceToken>)
-        //     .then(result => {
-        //         console.log(result.result)
-        //         setbalanceToken(result.result)
-        //     }
-
-        //     )
-        //     .catch(error => console.log('error', error));
-    }
-
-    // useEffect(() => {
-    //     const myHeaders = new Headers();
-    //     myHeaders.append("x-api-key", "Vus5VBA9XGmOsBhk");
-
-    //     // await setpublickey("3mFufooNGtcc8BMesZKJHSTVz7DBFEkEkbGcQB6Pqt41")
-    //     var getAllToken: RequestInit = {
-    //         method: 'GET',
-    //         headers: myHeaders,
-    //         redirect: 'follow'
-    //     };
-
-    //     fetch("https://api.shyft.to/sol/v1/wallet/all_tokens?network=devnet&wallet=3mFufooNGtcc8BMesZKJHSTVz7DBFEkEkbGcQB6Pqt41", getAllToken)
-    //         .then(response => response.json() as Promise<WalletBalanceToken>)
-    //         .then(result => {
-    //             console.log(result.result)
-    //             setbalanceToken(result.result)
-    //         }
-
-    //         )
-    //         .catch(error => console.log('error', error));
-    // }, [])
-
-
-    // useEffect(() => {
-    //     const myHeaders = new Headers();
-    //     myHeaders.append("x-api-key", "Vus5VBA9XGmOsBhk");
-
-    //     // await setpublickey("3mFufooNGtcc8BMesZKJHSTVz7DBFEkEkbGcQB6Pqt41")
-    //     var getAllToken: RequestInit = {
-    //         method: 'GET',
-    //         headers: myHeaders,
-    //         redirect: 'follow'
-    //     };
-
-    //     fetch("https://api.shyft.to/sol/v1/wallet/get_portfolio?network=devnet&wallet=3mFufooNGtcc8BMesZKJHSTVz7DBFEkEkbGcQB6Pqt41", getAllToken)
-    //         .then(response => response.json() as Promise<getPortfolio>)
-    //         .then(result => {
-    //             console.log(result.result)
-    //             setInfo(result.result)
-    //         })
-    //         .catch(error => console.log('error', error));
-    // }, [])
+      const headers = {
+        'x-api-key': apiKey,
+      };
+      
+      // Tạo URL của yêu cầu
+      const apiUrl = "https://api.shyft.to/sol/v1/transaction/history";
+      
+      axios.get(apiUrl, {
+        params: {
+          network: Network.Devnet,
+          account: publicKey?.toBase58(),
+          tx_num: 10,
+          enable_raw: true,
+        },
+        headers: headers,
+      })
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
 
     return (
         <>
-            <div>
-                {balanceToken.map(token => (
-                    <div key={token.address}>
-                        <p>Address: {token.address}</p>
-                        <p>Balance: {token.balance}</p>
-                        <p>Name: {token.info.name}</p>
-                        <p>Symbol: {token.info.symbol}</p>
-                        <p>Image: {token.info.image}</p>
-                    </div>
-                ))}
-            </div>
             <div className="flex justify-center">
                 <div className="w-1/2">
                     <div className="p-4 border rounded-lg shadow-md">
@@ -176,33 +117,30 @@ const Profile = () => {
                                     <div className="text-xl font-bold">Tên</div>
                                     <div className="text-gray-500"></div>
                                 </div>
-
                             </div>
                         </div>
-                        <div className="w-max mb-2">asdffd</div>
+                        <div className="w-max mb-2">Shizuku</div>
 
                         <div className="grid gap-4 grid-cols-3 grid-rows-1">
 
                             <div className="border rounded-lg bg-gray-100 py-3 p-3">
                                 <div className="text-xs">Donate</div>
                                 <div>
-                                    <span className="text-purple-700 text-2xl">700</span>
-                                    <span className="text-xs">  asdf</span>
+                                    <span className="text-purple-700 text-2xl">{info?.sumDonate}</span>
                                 </div>
                             </div>
 
                             <div className="border rounded-lg bg-gray-100 py-3 p-3">
                                 <div className="text-xs">Project donate</div>
                                 <div>
-                                    <span className="text-purple-700 text-2xl">700</span>
-                                    <span className="text-xs">  USDC</span>
+                                    <span className="text-purple-700 text-2xl">{info?.countProject}</span>
                                 </div>
                             </div>
 
                             <div className="border rounded-lg bg-gray-100 py-3 p-3">
                                 <div className="text-xs">Balance</div>
                                 <div>
-                                    <span className="text-purple-700 text-2xl">{info?.sol_balance.toFixed(2)}</span>
+                                    <span className="text-purple-700 text-2xl">{}</span>
                                     <span className="text-xs">  SOL</span>
                                 </div>
                             </div>
@@ -247,8 +185,6 @@ const Profile = () => {
                 </div>
 
             </div>
-
-            <TransactionLayout />
         </>
 
 

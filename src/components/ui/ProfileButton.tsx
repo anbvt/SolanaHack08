@@ -22,7 +22,7 @@ import Link from "next/link";
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="cursor-pointer"> <Link href={'/profile'}>Profile</Link></DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer"> <Link href={'/my-profile'}>Profile</Link></DropdownMenuItem>
           <DropdownMenuItem className="cursor-pointer">Billing</DropdownMenuItem>
           <DropdownMenuItem className="cursor-pointer">Subscription</DropdownMenuItem>
           <DropdownMenuSeparator />

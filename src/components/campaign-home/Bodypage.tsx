@@ -1,5 +1,6 @@
 "use client";
 import { userGlobalContext } from "@/app/Context/Store";
+import HomePage from "@/app/transaction/page";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,13 +30,13 @@ function Bodypage() {
   return (
     <>
       {dataList.map((image, index) => (
-        <div className="relative m-5 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
-          <div key={index}>
+        <div className="relative m-5 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md" key={index}>
+          <div >
             <Link
               className="relative flex h-60 overflow-hidden rounded-xl"
               href={`/products-detail/${image.id}`}
             >
-              <img
+              <Image
                 className="object-cover w-full"
                 src={image?.image}
                 alt={""}
@@ -71,6 +72,7 @@ function Bodypage() {
                   Last donate:
                 </h4>
               </Link>
+          <HomePage/>
             </div>
           </div>
         </div>

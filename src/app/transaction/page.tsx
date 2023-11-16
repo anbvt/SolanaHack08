@@ -13,17 +13,27 @@ import { Input } from "@/components/ui/input";
 import truncate from "@/types/truncate";
 import ConnectWalletButton from "@/components/wallet/connect-wallet-button";
 import { cn } from "@/lib/utils";
-import { ShyftSdk, Network, TokenBalance } from '@shyft-to/js';
+import { ShyftSdk, Network, TokenBalance } from "@shyft-to/js";
 import Image from "next/image";
+import axios from "axios";
+import {useRouter } from "next/navigation";
 
 type ResultStatus = "idle" | "success" | "failed";
-
-export default function HomePage() {
+interface Donate{
+  id_campaign : number;
+  sol: number;
+  publicKey: string
+}
+interface HomePageProps {
+  id: number;
+}
+export default function HomePage({ id }: HomePageProps) {
   const [receiver, setReceiver] = useState("");
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ResultStatus>("idle");
   const [signature, setSignature] = useState("");
+  const defaultReceiver = "3mFufooNGtcc8BMesZKJHSTVz7DBFEkEkbGcQB6Pqt41";
 
   const { connected, publicKey, sendTransaction } = useWallet();
   const { connection } = useConnection();
@@ -37,7 +47,7 @@ export default function HomePage() {
       setSignature("");
       const ix = SystemProgram.transfer({
         fromPubkey: publicKey,
-        toPubkey: new PublicKey(receiver),
+        toPubkey: new PublicKey(defaultReceiver),
         lamports: parseFloat(amount) * LAMPORTS_PER_SOL,
       });
       const tx = new Transaction().add(ix);
@@ -45,6 +55,18 @@ export default function HomePage() {
       await connection.confirmTransaction(signature, "processed");
       setSignature(signature);
       setResult("success");
+      const donateData = {
+        id_campaign: id, 
+        sol: parseFloat(amount),
+        publicKey: publicKey.toBase58(),
+      };
+      const response = await axios.post('http://localhost:8080/api/v1/donate', donateData);
+
+      if (response.status === 200) {
+        console.log('Donate successful');
+      } else {
+        console.error('Donate failed');
+      }
     } catch (error) {
       console.error(error);
       setResult("failed");
@@ -55,9 +77,8 @@ export default function HomePage() {
 
   return (
     <>
-    <div>
-    </div>
-      <div className="mx-auto my-20 flex w-full max-w-md flex-col gap-6 rounded-2xl p-6 shadow-card">
+      <div>
+        <h1>-------------------------------------</h1>
         <label className="font-bold">Transfer</label>
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between gap-4">
@@ -66,11 +87,13 @@ export default function HomePage() {
               {publicKey ? truncate(publicKey.toBase58(), 16, true) : "--"}
             </label>
           </div>
-          <Input
-            value={receiver}
-            onChange={(event) => setReceiver(event.target.value)}
-            placeholder="Receiver address"
-          />
+          <div className="flex items-center justify-between">
+            <label>receiver</label>
+            <label>
+              <h1 className="font-semibold">{truncate(defaultReceiver, 16, true)}</h1>
+            </label>
+          </div>
+
           <Input
             type="number"
             value={amount}
@@ -78,7 +101,7 @@ export default function HomePage() {
             placeholder="Amount"
           />
           {connected ? (
-            <Button disabled={!receiver || !amount} onClick={submitTransaction}>
+            <Button disabled={!amount} onClick={submitTransaction}>
               Send
             </Button>
           ) : (

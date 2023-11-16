@@ -1,5 +1,8 @@
 "use client";
+import HomePage from "@/app/transaction/page";
 import axios from "axios";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 interface Campaign {
   id: number;
@@ -30,7 +33,7 @@ const Detail = () => {
     return () => {
       cancelToken.cancel;
     };
-  }, [id]);
+  },[id]);
   return (
     <>
       <section className="max-w-7xl px-6 mx-auto">
@@ -201,38 +204,7 @@ const Detail = () => {
             </div>
           </div>
           <div className="font-manrope flex h-screen w-2/3 items-start justify-center">
-            <div className="mx-auto box-border w-[365px] border bg-white p-4 rounded-xl shadow-md overflow-hidden">
-              <div className="flex items-center justify-between">
-                <span className="text-black font-bold">Sending Money</span>
-              </div>
-              <div className="mt-6">
-                <div className="font-semibold">
-                  How much would you like to send?
-                </div>
-                <div>
-                  <input
-                    className="mt-1 w-full rounded-[4px] border border-[#A0ABBB] p-2"
-                    value="100.00"
-                    type="text"
-                    placeholder="100.00"
-                  />
-                </div>
-              </div>
-              <div className="mt-6">
-                <div className="font-semibold">Note for campagin</div>
-                <div>
-                  <textarea
-                    className="mt-1 w-full rounded-[4px] border border-[#A0ABBB] p-2"
-                    placeholder="Write your support speech here (Optional)"
-                  />
-                </div>
-              </div>
-              <div className="mt-6">
-                <div className="w-full cursor-pointer rounded-[4px] bg-green-700 px-3 py-[6px] text-center font-semibold text-white">
-                  Send
-                </div>
-              </div>
-            </div>
+              <HomePage id={id}/>
           </div>
         </section>
       </section>
