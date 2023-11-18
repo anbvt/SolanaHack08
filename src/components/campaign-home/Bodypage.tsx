@@ -72,7 +72,6 @@ function Bodypage() {
                   Last donate:
                 </h4>
               </Link>
-          <HomePage/>
             </div>
           </div>
         </div>

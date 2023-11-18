@@ -14,8 +14,16 @@ interface Campaign {
   total: number;
   description: string;
 }
+interface Data {
+  id: number;
+  sol: number;
+  dateDonate: null | string;
+  publicKey: string;
+  campaign: Campaign;
+}
 const Detail = () => {
   const [imageList, setImageList] = useState<Campaign>();
+  const [listDonate, setListDonate] = useState<Data[]>([]);
   const id = Number(window.location.pathname.split("/").pop() as string);
   useEffect(() => {
     const cancelToken = axios.CancelToken.source();
@@ -33,7 +41,25 @@ const Detail = () => {
     return () => {
       cancelToken.cancel;
     };
-  },[id]);
+  }, [id]);
+
+  useEffect(() => {
+    const fetchDataa = async () => {
+      try {
+        const result = await axios.post(
+          "http://localhost:8080/api/v1/donate/campaign-get-all",
+          {
+            id: id,
+          }
+        );
+        setListDonate(result.data);
+        console.log(result.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchDataa();
+  }, [id]);
   return (
     <>
       <section className="max-w-7xl px-6 mx-auto">
@@ -204,10 +230,34 @@ const Detail = () => {
             </div>
           </div>
           <div className="font-manrope flex h-screen w-2/3 items-start justify-center">
-              <HomePage id={id}/>
+            <HomePage id={id} />
           </div>
         </section>
       </section>
+      <div className="font-manrope w-200">
+        <div className="text-center mb-3 text-green-600">
+          <h1>History Transaction</h1>
+        </div>
+        {listDonate.map((item, index) => (
+          <div key={index} className="p-4 border rounded-lg shadow-md mb-4">
+            <div className="flex justify-between">
+              <div>
+                <div className="text-purple-500">
+                  Donated to :{" "}
+                  <span className="text-blue-600">{item.publicKey}</span>
+                </div>
+                <div className="">Date Donate: {item.dateDonate}</div>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                <span className="text-purple-500">Donate</span>
+                <div className="p-1 text-green-500 bg-green-200 jus h-0.2 rounded-2xl">
+                  {item.sol}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </>
   );
 };
